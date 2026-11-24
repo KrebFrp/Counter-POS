@@ -1,0 +1,6 @@
+@extends('layouts.app')
+@section('title', $product->name)
+@section('section', 'Products')
+@section('content')
+<a class="back-link" href="{{ route('products.index') }}"><x-icon name="back" />Back to products</a><x-page-header :title="$product->name" :description="'Product #'.$product->id" eyebrow="INVENTORY">@can('manage-store')<a class="button secondary" href="{{ route('products.stock.index', $product) }}"><x-icon name="history" />Stock history</a><a class="button secondary" href="{{ route('products.edit', $product) }}"><x-icon name="edit" />Edit product</a><x-confirm :action="route('products.destroy', $product)" :name="$product->name" />@endcan</x-page-header><section class="panel detail-panel"><x-image :path="$product->image" :name="$product->name" large /><dl class="detail-grid"><div><dt>Unit price</dt><dd>{{ App\Support\Money::display($product->price) }}</dd></div><div><dt>Available stock</dt><dd>{{ number_format($product->stock_quantity) }} units</dd></div><div><dt>Added on</dt><dd>{{ $product->created_at->timezone(config('pos.display_timezone'))->format('M j, Y · g:i A') }}</dd></div><div><dt>Sales recorded</dt><dd>{{ $product->sales()->count() }}</dd></div></dl></section>
+@endsection
