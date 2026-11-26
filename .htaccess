@@ -1,0 +1,5 @@
+# This project lives under XAMPP htdocs. Serve public/ only.
+# Prevent direct HTTP access to source, local tools, and private environment files.
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
